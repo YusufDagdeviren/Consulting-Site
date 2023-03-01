@@ -35,5 +35,3 @@ router.post("/register",ctrlVerification.register);
 router.post("/login",ctrlVerification.login)
 
 module.exports=router;
-// Web 9. Slaytın 22.sayfasında kalındı.
-// Web 12.Slayt 30.sayfada kalındı.
