@@ -15,7 +15,6 @@ router
 .get(ctrlUsers.getUsers)
 
 
-
 router
 .route('/users/:userid')
 .get(ctrlUsers.getUser)
