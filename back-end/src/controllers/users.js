@@ -26,7 +26,9 @@ const getUsers = (req,res) =>{
 }
 const getUser = (req,res) => {
    if(req.params && req.params.userid) {
-    User.findById(req.params.userid).exec((error,content) => {
+    User.findById(req.params.userid)
+    .select("-salt -hash -authority")
+    .exec((error,content) => {
         if(!content){
             createAnswer(res,404,{"error":"User is not found"})
         }else if (error){
