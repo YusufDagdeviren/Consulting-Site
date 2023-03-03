@@ -1,4 +1,4 @@
-import React from 'react'
+import {useState} from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { fetchUserDetail } from '../../api';
@@ -12,14 +12,24 @@ import {
   CardContent,
   Typography,
   List,
-  ListItem,
-  ListItemText,
-  ListItemAvatar,
+  Divider,
+  Box,
+  TextField,
+  Button
 } from '@mui/material';
+import Comments from '../../components/Comments';
 import { red } from '@mui/material/colors';
 
 function UserDetail() {
   const { userid } = useParams();
+  const [comment,setComment] = useState("");
+  const handleComment = (e) =>{
+    setComment(e.target.value);
+  }
+  const handleSubmit = () =>{
+    console.log(comment);
+    setComment("");
+  }
   const { isLoading, error, data } = useQuery(['user', userid], () => fetchUserDetail(userid))
   if (isLoading) {
     return <div>Loading...</div>
@@ -27,12 +37,11 @@ function UserDetail() {
   if (error) {
     return <div>{`An error has occurred:  + ${error.message}`}</div>
   }
-  console.log(data);
   return (
     <Container sx={{ marginTop: 2, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 2 }}>
-      <Grid container>
-        <Grid item xs={12} md={8} sx={{ display: "flex", justifyContent: "center" }}>
-          <Card sx={{ maxWidth: 500, backgroundColor: "#093b58", color: "white" }}>
+      <Grid container sx={{display:"flex"}}>
+        <Grid item md={8} sx={{ display: "flex", justifyContent: "center" }}>
+          <Card sx={{ maxWidth: 500, backgroundColor: "#1e71a2", color: "white" }}>
             <CardHeader
               color="white"
               avatar={
@@ -40,7 +49,18 @@ function UserDetail() {
                   {data.name.charAt(0)}
                 </Avatar>
               }
-              title={data.name}
+              title={
+                <>
+                  <Typography>
+                    {data.name}
+                  </Typography>
+                  <Typography variant='body3'>
+                    {data.address}
+                  </Typography>
+                </>
+
+              }
+
               subheader={data.job}
               subheaderTypographyProps={{ color: '#7aede4' }}
             />
@@ -51,47 +71,32 @@ function UserDetail() {
               alt='Profile Photo'
             />
             <CardContent>
-              <Typography variant="body2" color="">
+              <Typography variant="body1" color="">
                 {data.title}
+              </Typography>
+              <Typography variant='body3'>
+                İletisim Bilgisi: {data.email}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <List sx={{ width: "100%", maxWidth: 360, backgroundColor: "#093b58", borderRadius: 1 }}>
-            <ListItem alignItems='flex-start'>
-              <ListItemAvatar>
-                <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                  D
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary={
-                  <Typography variant="h6" gutterBottom color={"white"}>
-                    12-02-2023
-                  </Typography>
-                }
-                secondary={
-                  <>
-                    <Typography
-                      sx={{ display: 'block' }}
-                      component="span"
-                      variant='body1'
-                      color="white"
-                    >
-                      Örnek İsim
-                    </Typography>
-                    <Typography variant="caption" display="block" color={"white"} gutterBottom>
-                      Örnek yorum metini
-                    </Typography>
-                  </>
-                }
-              >
-
-              </ListItemText>
-            </ListItem>
-          </List>
-          
+        <Grid item md={4} sx={{marginTop:1}}>
+          <Grid container >
+            <Grid item xs={12}>
+              <List sx={{ width: "100%", maxWidth: 360, backgroundColor: "#a24f1e", borderRadius: 2, flexGrow: 1 }}>
+                {data.comments.map((item, index) => (
+                  <Box key={index}>
+                    <Comments data={item} />
+                    <Divider variant="inset" component="li" sx={{ backgroundColor: "white" }} />
+                  </Box>
+                ))}
+              </List>
+            </Grid>
+            <Grid item xs={12} sx={{ marginTop: 1, display: "flex", justifyContent: "left",alignItems:"center"}} >
+              <TextField id="outlined-basic" label="Yorum Yaz" variant="outlined" onChange={handleComment} value={comment}/>
+              <Button variant="contained" sx={{ marginLeft: 1}} onClick={handleSubmit}>Yorum</Button>
+            </Grid>
+          </Grid>     
         </Grid>
       </Grid>
 

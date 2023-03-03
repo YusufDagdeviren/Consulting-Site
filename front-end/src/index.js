@@ -5,15 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from 'react-query'
+import { AuthProvider } from './contexts/AuthContext';
+import { ReactQueryDevtools } from 'react-query/devtools'
 const queryClient = new QueryClient()
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <AuthProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </AuthProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>
 
 );
