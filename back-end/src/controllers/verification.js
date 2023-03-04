@@ -25,7 +25,7 @@ const register = (req,res) =>{
                 createAnswer(res,404,error)
             }else{
                 const token = user.setToken();
-                createAnswer(res,200,{"token: ":token})
+                createAnswer(res,200,{"token":token})
             }
         })
     }
@@ -46,7 +46,7 @@ const login = (req,res) => {
             }
             if(user){
                 token = user.setToken();
-                createAnswer(res,200,{"token: ":token})
+                createAnswer(res,200,{"token":token})
             }else{
                 createAnswer(res,401,info)
                 return;

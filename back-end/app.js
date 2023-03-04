@@ -9,6 +9,7 @@ require('./src/config/passport');
 const app = express();
 
 app.use(passport.initialize());
+app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cors({
     origin: 'http://localhost:3001', // izin verilen kaynak
