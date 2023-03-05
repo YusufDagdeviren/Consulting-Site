@@ -1,19 +1,5 @@
 import axios from "axios";
-axios.interceptors.request.use(
-    //istek gönderilmeden önce yapılacaklar
-    function (config) {
-        const { origin } = new URL(config.url);
-        const allowedOrigins = [process.env.REACT_APP_BASE_ENDPOINT]
-        const token = localStorage.getItem("token")
-        if (allowedOrigins.includes(origin)) {
-            config.headers.authorization = token;
-        }
-        return config;
-    },
-    function (error) {
-        return Promise.reject(error);
-    }
-);
+
 const fetchUserList = async() => {
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/users`)
     return data;
@@ -30,9 +16,29 @@ const fetchLogin = async(input) => {
     const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/login`,input);
     return data
 }
+const fetchMe = async() =>{
+    const config = {
+        headers: {
+            Authorization: 'Bearer '+ localStorage.getItem("token")
+        }
+    };
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/whoami`,config)
+    return data
+}
+const fetchComment = async (id,input) => {
+    const config = {
+        headers: {
+            Authorization: 'Bearer '+ localStorage.getItem("token")
+        }
+    };
+    const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}/comments`,input,config);
+    return data;
+}
 export{
     fetchUserList,
     fetchUserDetail,
     fetchRegister,
-    fetchLogin
+    fetchLogin,
+    fetchMe,
+    fetchComment
 }

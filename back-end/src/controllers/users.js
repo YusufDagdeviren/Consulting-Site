@@ -86,7 +86,6 @@ const updateUser = (req,res) => {
     }else{
         createAnswer(res,401,{"error":"unauthorized action"})
     }
-    
 }
 const deleteUser = (req,res) => {
     const userid = req.params.userid;
@@ -113,12 +112,30 @@ const deleteUser = (req,res) => {
     }else{
         createAnswer(res,401,{"error":"unauthorized action"})
     }
-    
 }
-
+const whoAmI = (req,res) => {
+    const userId = req.auth._id;
+    if(userId){
+        User
+        .findById(userId)
+        .select("_id authority")
+        .exec((error,content) => {
+            if(error){
+                createAnswer(res,400,error)
+            }else if(!content){
+                createAnswer(res,404,{"error":"user is not found"})
+            }else{
+                createAnswer(res,200,content)
+            }
+        })
+    }else{
+        createAnswer(res,401,{"error":"unauthorized action"})
+    }
+}
 module.exports = {
     getUsers,
     getUser,
     updateUser,
     deleteUser,
+    whoAmI
 }

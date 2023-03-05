@@ -16,7 +16,7 @@ function Login() {
     },
     onSubmit:async (values) => {
         const loginResponse = await fetchLogin({email:values.email, password:values.password});
-        Login(loginResponse);
+        await Login(loginResponse);
         window.location.href="/";
     },
     validationSchema: validations

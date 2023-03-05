@@ -32,5 +32,5 @@ router
 
 router.post("/register",ctrlVerification.register);
 router.post("/login",ctrlVerification.login)
-
+router.get("/whoami",auth,ctrlUsers.whoAmI);
 module.exports=router;

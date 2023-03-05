@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { fetchUserDetail } from '../../api';
@@ -15,20 +15,24 @@ import {
   Divider,
   Box,
   TextField,
-  Button
+  Button,
+  FormControl,
+  Input,
+  FormHelperText
 } from '@mui/material';
 import Comments from '../../components/Comments';
 import { red } from '@mui/material/colors';
-
+import { useAuth } from '../../contexts/AuthContext';
+import { fetchComment } from '../../api';
 function UserDetail() {
+  const { loggedIn,user } = useAuth();
   const { userid } = useParams();
-  const [comment,setComment] = useState("");
-  const handleComment = (e) =>{
+  const [comment, setComment] = useState("");
+  const handleComment = (e) => {
     setComment(e.target.value);
   }
-  const handleSubmit = () =>{
-    console.log(comment);
-    setComment("");
+   const  handleSubmit = async () => {
+    const commentResponse = await fetchComment(userid,{commentText:comment});
   }
   const { isLoading, error, data } = useQuery(['user', userid], () => fetchUserDetail(userid))
   if (isLoading) {
@@ -39,7 +43,7 @@ function UserDetail() {
   }
   return (
     <Container sx={{ marginTop: 2, display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 2 }}>
-      <Grid container sx={{display:"flex"}}>
+      <Grid container sx={{ display: "flex" }}>
         <Grid item md={8} sx={{ display: "flex", justifyContent: "center" }}>
           <Card sx={{ maxWidth: 500, backgroundColor: "#1e71a2", color: "white" }}>
             <CardHeader
@@ -80,7 +84,7 @@ function UserDetail() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item md={4} sx={{marginTop:1}}>
+        <Grid item md={4} sx={{ marginTop: 1 }}>
           <Grid container >
             <Grid item xs={12}>
               <List sx={{ width: "100%", maxWidth: 360, backgroundColor: "#a24f1e", borderRadius: 2, flexGrow: 1 }}>
@@ -92,11 +96,26 @@ function UserDetail() {
                 ))}
               </List>
             </Grid>
-            <Grid item xs={12} sx={{ marginTop: 1, display: "flex", justifyContent: "left",alignItems:"center"}} >
-              <TextField id="outlined-basic" label="Yorum Yaz" variant="outlined" onChange={handleComment} value={comment}/>
-              <Button variant="contained" sx={{ marginLeft: 1}} onClick={handleSubmit}>Yorum</Button>
+            <Grid item xs={12} sx={{ marginTop: 1, display: "flex", justifyContent: "left", alignItems: "center" }} >
+              {loggedIn && user._id !==userid && (
+                <>
+                  <TextField id="outlined-basic" label="Yorum Yaz" variant="outlined" onChange={handleComment} value={comment} />
+                  <Button variant="contained" sx={{ marginLeft: 1 }} onClick={handleSubmit}>Yorum</Button>
+                </>
+              )}
+              {
+                !loggedIn && (
+                  <>
+                    <FormControl disabled variant="standard">
+                      <Input id="component-disabled" defaultValue="Please sign" />
+                      <FormHelperText>Please sign in to post a comment</FormHelperText>
+                    </FormControl>
+                  </>
+                )
+              }
+
             </Grid>
-          </Grid>     
+          </Grid>
         </Grid>
       </Grid>
 
