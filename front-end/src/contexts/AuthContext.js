@@ -31,6 +31,7 @@ const AuthProvider = ({children}) => {
     const Logout = () => {
         setLoggedIn(false);
         localStorage.removeItem("token");
+        window.location.href="/";
     }
     const values = {
         loggedIn,

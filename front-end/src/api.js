@@ -1,5 +1,12 @@
 import axios from "axios";
-
+const setAuth = () => {
+    const config = {
+        headers: {
+            Authorization: 'Bearer '+ localStorage.getItem("token")
+        }
+    };
+    return config
+}
 const fetchUserList = async() => {
     const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/users`)
     return data;
@@ -17,22 +24,19 @@ const fetchLogin = async(input) => {
     return data
 }
 const fetchMe = async() =>{
-    const config = {
-        headers: {
-            Authorization: 'Bearer '+ localStorage.getItem("token")
-        }
-    };
-    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/whoami`,config)
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/whoami`,setAuth())
     return data
 }
-const fetchComment = async (id,input) => {
-    const config = {
-        headers: {
-            Authorization: 'Bearer '+ localStorage.getItem("token")
-        }
-    };
-    const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}/comments`,input,config);
+const fetchComment = async (id,input) => { 
+    const {data} = await axios.post(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}/comments`,input,setAuth());
     return data;
+}
+const fetchUpdateUser = async (id,input) => {
+    const { data } = await axios.put(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}`,input,setAuth())
+    return data;
+}
+const fetchDeleteUSer = async (id) =>{
+    const { data } = await axios.delete(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}`,setAuth())
 }
 export{
     fetchUserList,
@@ -40,5 +44,6 @@ export{
     fetchRegister,
     fetchLogin,
     fetchMe,
-    fetchComment
+    fetchComment,
+    fetchUpdateUser
 }
