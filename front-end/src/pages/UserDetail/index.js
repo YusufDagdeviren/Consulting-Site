@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useQuery } from 'react-query';
 import { fetchUserDetail } from '../../api';
+
 import {
   Container,
   Grid,
@@ -18,7 +19,8 @@ import {
   Button,
   FormControl,
   Input,
-  FormHelperText
+  FormHelperText,
+  LinearProgress
 } from '@mui/material';
 import Comments from '../../components/Comments';
 import { red } from '@mui/material/colors';
@@ -36,7 +38,11 @@ function UserDetail() {
   }
   const { isLoading, error, data } = useQuery(['user', userid], () => fetchUserDetail(userid))
   if (isLoading) {
-    return <div>Loading...</div>
+    return(
+      <Box sx={{ width: '100%' }}>
+          <LinearProgress />
+      </Box>
+    )
   }
   if (error) {
     return <div>{`An error has occurred:  + ${error.message}`}</div>

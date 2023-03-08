@@ -8,7 +8,17 @@ import {
   Typography
 } from '@mui/material';
 import { useAuth } from '../../contexts/AuthContext';
+import SvgIcon from '@mui/material/SvgIcon';
+
 function Navbar() {
+  
+  function HomeIcon(props) {
+    return (
+      <SvgIcon {...props}>
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+      </SvgIcon>
+    );
+  }
   const { loggedIn,Logout,user } = useAuth();
   return (
     <div>
@@ -16,10 +26,8 @@ function Navbar() {
         <Toolbar>
           <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center", marginRight: "auto" }}>
             <Link to="/" className={styles.link}>
-              <Typography variant='h6'>
-                Home
-              </Typography>
-            </Link>
+                <HomeIcon fontSize="large" />
+              </Link>
           </Box>
           <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: "center", marginLeft: "auto" }}>
             {

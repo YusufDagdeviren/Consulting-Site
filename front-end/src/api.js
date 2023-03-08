@@ -35,8 +35,9 @@ const fetchUpdateUser = async (id,input) => {
     const { data } = await axios.put(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}`,input,setAuth())
     return data;
 }
-const fetchDeleteUSer = async (id) =>{
+const fetchDeleteUser = async (id) =>{
     const { data } = await axios.delete(`${process.env.REACT_APP_BASE_ENDPOINT}/users/${id}`,setAuth())
+    return data;
 }
 export{
     fetchUserList,
@@ -45,5 +46,6 @@ export{
     fetchLogin,
     fetchMe,
     fetchComment,
-    fetchUpdateUser
+    fetchUpdateUser,
+    fetchDeleteUser
 }

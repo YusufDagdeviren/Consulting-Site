@@ -1,5 +1,7 @@
 import { createContext,useContext,useState, useEffect } from "react";
 import { fetchMe } from "../api";
+import { LinearProgress, Box } from '@mui/material';
+
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
@@ -41,7 +43,11 @@ const AuthProvider = ({children}) => {
         user
     }
     if(loading){
-        return <div>Loading....</div>
+        return (
+        <Box sx={{ width: '100%' }}>
+            <LinearProgress />
+        </Box>
+      )
     }
     return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>
 }

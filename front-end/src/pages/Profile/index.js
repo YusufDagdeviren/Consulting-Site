@@ -6,7 +6,8 @@ import { Formik } from 'formik';
 import validations from './Validation';
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteIcon from '@mui/icons-material/Delete'
-import { fetchUpdateUser } from '../../api';
+import { fetchUpdateUser, fetchDeleteUser } from '../../api';
+import { useAuth } from '../../contexts/AuthContext';
 import {
   Box,
   Typography,
@@ -14,7 +15,14 @@ import {
   Button
 } from '@mui/material';
 function Profile() {
+  const { Logout } = useAuth();
+  
   const { userid } = useParams();
+  const handleDelete = async() =>{
+    const deleteResponse = await fetchDeleteUser(userid);
+    console.log(deleteResponse);
+    Logout();
+  }
   const { isLoading, error, data } = useQuery(['user', userid], () => fetchUserDetail(userid))
 
   if (isLoading) {
@@ -113,7 +121,7 @@ function Profile() {
             helperText={errors.title && touched.title && `${errors.title}`}
           />
         </Box>
-        <Box sx={{display:"flex",justifyContent:"center" ,flexDirection:"row"}}>
+        <Box sx={{display:"flex",justifyContent:"center" ,flexDirection:"row",mb:1}}>
           <Button
             size="large"
             color="success"
@@ -129,6 +137,7 @@ function Profile() {
             color='error'
             startIcon={<DeleteIcon />}
             variant="contained"
+            onClick={handleDelete}
           >
             <span>Delete</span>
           </Button>

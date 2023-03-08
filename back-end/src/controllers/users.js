@@ -109,6 +109,21 @@ const deleteUser = (req,res) => {
         }else{
             createAnswer(res,404,{"error":"userid has not found"})
         }
+    }else if(userid===req.auth._id){
+        User
+        .findByIdAndRemove(userid)
+        .exec((error,content) => {
+            if(error){
+                createAnswer(res,404,error)
+                return;
+            }else{
+                if(!content){
+                    createAnswer(res,404,{"error":"User has not found"})
+                }else{
+                    createAnswer(res,200,{"state":`User is remove, delete user is:${content.name}`})
+                } 
+            }
+        })
     }else{
         createAnswer(res,401,{"error":"unauthorized action"})
     }
