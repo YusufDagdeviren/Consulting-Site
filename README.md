@@ -77,7 +77,7 @@ REACT_APP_BASE_ENDPOINT=http://localhost:3000/api
 
 ![photos](/Photos/afterLoginNavbar.png)
 
-7. **Kullanıcı Bilgilerini Güncelleme Sayfası**
+7. **Kullanıcı Bilgilerini Güncelleme ve Silme Sayfası**
 
 ![photos](/Photos/ProfileInformationPage.png)
 
