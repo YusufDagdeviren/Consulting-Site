@@ -84,6 +84,9 @@ REACT_APP_BASE_ENDPOINT=http://localhost:3000/api
 8. **Yorum Yapma Sayfası**
 
 ![photos](/Photos/commentPage.png)
+## Güncellemeler:
+- Ana sayfaya infinite query özelliği eklendi ✔️
+![photos](/Photos/infiniteQuery.png)
 
 ### Client Tarafında ve back-end tarafında engellediklerim
 - Kullanıcı her iki tarafta da kendisine yorum yapamıyor client tarafında yorum yapma inputu kapalı.
@@ -94,4 +97,5 @@ REACT_APP_BASE_ENDPOINT=http://localhost:3000/api
 - Admin'e özel sayfa eklenecek. Admin kendi işlemlerini o sayfa üzerinden gerçekleştirecek.
 - Kullanıcılar yorumlarını değiştirebilsin diye kullanıcı detay sayfasına yeni özellikler eklenecek.
 - Görünümde iyileştirmeler yapılacak (React Memoization).
-- Test yazılacak.
+- Test yazılacak. 
+- Ana sayfaya sonsuz sorgu özelliği eklenecek ✔️
