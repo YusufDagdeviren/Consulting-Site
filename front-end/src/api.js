@@ -7,8 +7,8 @@ const setAuth = () => {
     };
     return config
 }
-const fetchUserList = async() => {
-    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/users`)
+const fetchUserList = async({ pageParam = 0 }) => {
+    const { data } = await axios.get(`${process.env.REACT_APP_BASE_ENDPOINT}/users?page=${pageParam}`)
     return data;
 }
 const fetchUserDetail = async(id) => {
