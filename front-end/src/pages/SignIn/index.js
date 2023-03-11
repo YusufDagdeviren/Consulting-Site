@@ -28,7 +28,7 @@ function Signin() {
   })
   return (
     <form onSubmit={handleSubmit}>
-      <Box sx={{ height: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+      <Box sx={{ height: "100vh", display: "flex", flexDirection: "column", alignItems: "center", mt:3 }}>
         <Typography variant='h2' sx={{ mb: 2 }}>
           SingIn
         </Typography>

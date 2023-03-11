@@ -9,7 +9,7 @@ const AuthProvider = ({children}) => {
     const[token,setToken] = useState(localStorage.getItem("token") || null);
     const[user,setUser] = useState(null);
     const [loading, setLoading] = useState(true)
-
+    
     useEffect(() =>{
         (async ()=>{
             try {

@@ -5,11 +5,20 @@ import {
   Toolbar,
   Button,
   Box,
-  Typography
+  Typography,
+  styled,
 } from '@mui/material';
+import { yellow,blue } from '@mui/material/colors';
+
 import { useAuth } from '../../contexts/AuthContext';
 import SvgIcon from '@mui/material/SvgIcon';
-
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(yellow[500]),
+  backgroundColor: yellow[500],
+  '&:hover': {
+    backgroundColor: yellow[700],
+  },
+}));
 function Navbar() {
   
   function HomeIcon(props) {
@@ -42,13 +51,20 @@ function Navbar() {
                 </>
               )
             }
+            
+            {loggedIn && user.authority==="admin" && (
+                <Link to={'/admin'} className={styled.link}>
+                  <ColorButton>Admin</ColorButton>
+                </Link>
+            )}
             {
               loggedIn && (
                 <>
-                    <Button variant='contained' color='error' onClick={Logout}>Logout</Button>
                     <Link to={`/profile/${user._id}`} className={styles.link}>
                       <Button variant='contained' color="secondary">Profile</Button>
                     </Link>
+                    <Button variant='contained' color='error' onClick={Logout}>Logout</Button>
+                    
                 </>
               )
             }
