@@ -85,7 +85,7 @@ REACT_APP_BASE_ENDPOINT=http://localhost:3000/api
 
 ![photos](/Photos/commentPage.png)
 ## Güncellemeler:
-- Ana sayfaya infinite query özelliği eklendi ✔️
+- Ana sayfaya infiniteQuery özelliği eklendi ✔️
 ![photos](/Photos/infiniteQuery.png)
 
 ### Client Tarafında ve back-end tarafında engellediklerim

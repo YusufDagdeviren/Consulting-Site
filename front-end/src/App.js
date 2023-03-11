@@ -29,7 +29,7 @@ function App() {
     </>
   );
 }
-//d
+//
 const ProtectedRoutes = () =>{
   const { loggedIn } = useAuth();
   return loggedIn ? <Outlet/>:<Navigate to="/signin"/>
